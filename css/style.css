@@ -5,6 +5,21 @@ body {
 	font-family: "Varela Round", Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	line-height: 1.5em;
+	margin:0;
+}
+
+.info{
+	color: white;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	text-align: center;
+	top: 150px;
+	font-size: 30px;
+}
+
+.infos{
+	font-size: 30px !important;
 }
 
 div.welcome{        
@@ -30,15 +45,12 @@ div.welcome a{
 	margin-right: 10px;
 } 
 
-div#footer{        
-	position:absolute;        
-	bottom:0;        
-	left:0;        
+div#footer{        	    
 	width:100%;        
 	height:45px;
 	background-color: black;   
 	color:white; 
-	text-align:center;    
+	text-align:center;  
 }     
 
 .cpr{
@@ -193,6 +205,8 @@ input {
 	width: 90%;
 	margin: 0 auto;
 	padding-top: 20px;
+	min-height: 100%;
+	margin-bottom: 45px;
 }
 
 .blogentry{
@@ -252,7 +266,8 @@ input {
 	border-left: 1px solid #CCCCCC;
 }
 
-.createpost a{font: bold 11px Arial;
+.createpost a{
+	font: bold 28px Arial;
 	text-decoration: none;
 	background-color: #EEEEEE;
 	color: #333333;
@@ -263,9 +278,74 @@ input {
 	border-left: 1px solid #CCCCCC;
 }
 
+.deletePost a{
+	font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+.deletePost{
+	margin: 10px 0;
+}
+
+.createpost{
+	text-align: center;
+	margin-top: 10px;
+}
+
 .noposts{
 	margin: 30px;
 	background-color: whitesmoke;
 	border-radius: 5px;
 	padding: 11px;
+}
+
+#message{
+	width: 342px;
+	height: 200px;
+	margin-bottom:10px;
+}
+
+.details{
+	width:98%;
+	position: relative;
+	top: 5px;
+}
+
+.createcomment{
+	margin-top: 12px;
+}
+
+.author{
+	color: green;
+	font-size: 12px;
+	font-style: italic;
+	background: rgb(247, 236, 236);
+	padding-left: 10px;
+}
+
+.blogentry .author{
+	width: 98%;
+	border-radius:10px;
+}
+
+.title{
+	color: rgb(114, 57, 57);
+	font-weight: bold;
+	background-color: rgb(247, 236, 236);
+	font-size: 20px;
+	padding-left: 10px;
+}
+
+.commentAuthor{
+	color: green;
+	font-size: 12px;
+	font-style: italic;
+	padding-left: 10px;
 }

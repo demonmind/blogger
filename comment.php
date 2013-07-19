@@ -25,20 +25,26 @@ if(isset($_POST['comment'])){
 <title>Blog - Comment</title>
 </head>
 <body>
-	<form id='login' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8'>
-	<fieldset >
-	<legend>Comment</legend>
-	<input type='hidden' name='user_id' id='user_id' value="<?php echo($_SESSION['user_id']); ?>"/>
-	<input type='hidden' name='post_id' id='postid' value="<?php echo($_GET['postid']); ?>"/>
-	<input type='hidden' name='blogname' id='blogname' value="<?php echo($_GET['blog']); ?>"/>
+	<?php
+		$username = $_SESSION['username'];
+		echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$_GET['blog']."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+	?>
+	<div id='login'>
+		<form id='login' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8'>
+			<h2><span class="signin"></span>Write a Comment</h2>
+			<fieldset >
+	
+			<input type='hidden' name='user_id' id='user_id' value="<?php echo($_SESSION['user_id']); ?>"/>
+			<input type='hidden' name='post_id' id='postid' value="<?php echo($_GET['postid']); ?>"/>
+			<input type='hidden' name='blogname' id='blogname' value="<?php echo($_GET['blog']); ?>"/>
  
-	<label for='message' >Message*:</label><br />
-	<textarea rows="5" cols="20" name='message' id='message'></textarea>
+			<label for='message' >Message*:</label><br />
+			<textarea name='message' id='message'></textarea>
 	
  
-	<input type='submit' name='comment' value='Comment' />
+			<input type='submit' name='comment' value='Comment' />
  
-	</fieldset>
-	</form>
+			</fieldset>
+		</form>
 </body>
 </html>

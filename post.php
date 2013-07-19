@@ -25,22 +25,29 @@ if(isset($_POST['post'])){
 <title>Blog - Register</title>
 </head>
 <body>
-	<form id='login' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8'>
-	<fieldset >
-	<legend>Register</legend>
-	<input type='hidden' name='user_id' id='user_id' value="<?php echo($_SESSION['user_id']); ?>"/>
-	<input type='hidden' name='blog_id' id='blogid' value="<?php echo($_GET['bid']); ?>"/>
-	<input type='hidden' name='blog_name' id='blogname' value="<?php echo($_GET['bname']); ?>"/>
-	<label for='title' >Title*:</label>
-	<input type='text' name='title' id='title'  maxlength="50" />
+	<?php
+		$blog = $_GET['bname'];
+		$username = $_SESSION['username'];
+		echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$blog."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+	?>
+	<div id='login'>
+		<form id='login' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8'>
+			<h2><span class="signin"></span>Post To Your Blog</h2>
+			<fieldset >
+			<p><input type='hidden' name='user_id' id='user_id' value="<?php echo($_SESSION['user_id']); ?>"/></p>
+			<p><input type='hidden' name='blog_id' id='blogid' value="<?php echo($_GET['bid']); ?>"/></p>
+			<p><input type='hidden' name='blog_name' id='blogname' value="<?php echo($_GET['bname']); ?>"/></p>
+			<p><label for='title' >Title*:</label></p>
+			<p><input type='text' name='title' id='title'  maxlength="50" /></p>
  
-	<label for='message' >Message*:</label>
-	<textarea rows="5" cols="10" name='message' id='message'></textarea>
+			<p><label for='message' >Message*:</label></p>
+			<p><textarea name='message' id='message'></textarea></p>
 	
  
-	<input type='submit' name='post' value='Post' />
+			<p><input type='submit' name='post' value='Post' /></p>
  
-	</fieldset>
-	</form>
+			</fieldset>
+		</form>
+	</div>
 </body>
 </html>

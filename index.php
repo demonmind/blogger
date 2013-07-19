@@ -18,10 +18,9 @@ require('config/functions.php');
 	if(!$username && !$login){
 		echo "<div class='welcome'><span class='innertext'>Welcome Guest! Login below or <a href=register.php>Register</a></span></div>";
 	}
-	
 	if(isset($username)){
 		echo "<div class='welcome'><span class='innertext'>Welcome ".$username." (<a href=logout.php>Logout</a>)</span></div>";
-		echo "<div class='info'>Please proceed to the <a href='blog.php' class='mainlink'>Blog</a></div>";
+		echo "<div class='info'>Please proceed to the <a href='blog.php' class='mainlink infos'>Blogs</a></div>";
 	}else{
 	?>
 	<div id='login'>
@@ -62,6 +61,6 @@ require('config/functions.php');
 		}
 	}
 	</script>
-	<div id="footer"><span class="cpr">Copyrighted Forever</span></div>
+	<!-- <div id="footer"><span class="cpr">Copyrighted Forever</span></div> -->
 </body>
 </html>

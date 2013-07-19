@@ -145,4 +145,41 @@ function getBlogPosts($blog_id){
 	}
 	mysql_close($conn);
 }
+
+function isSuperadmin($user_id){
+	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
+	$db = mysql_select_db(DB_NAME);
+	$sql = "SELECT * FROM users where userID = '{$user_id}'";
+	$result = mysql_query($sql);
+	if(!$result){
+		die("Invalid query ".mysql_error());
+	}else{
+		while($row = mysql_fetch_array($result)){
+			return $row['superadmin'];
+		}
+	}
+	mysql_close($conn);
+}
+
+function deletePost($post_id){
+	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
+	$db = mysql_select_db(DB_NAME);
+	$sql = "DELETE FROM posts where postID = '{$post_id}'";
+	$result = mysql_query($sql);
+	if(!$result){
+		die("Invalid query ".mysql_error());
+	}
+	mysql_close($conn);
+}
+
+function deletecomment($comment_id){
+	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
+	$db = mysql_select_db(DB_NAME);
+	$sql = "DELETE FROM comments where commentID = '{$comment_id}'";
+	$result = mysql_query($sql);
+	if(!$result){
+		die("Invalid query ".mysql_error());
+	}
+	mysql_close($conn);
+}
 ?>

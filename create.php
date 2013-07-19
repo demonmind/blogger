@@ -24,14 +24,26 @@ if(isset($_POST['create'])){
 <title>BLOG</title>
 </head>
 <body>
+	<?php
+	$username = $_SESSION['username'];
+	$login = $_SESSION['login'];
+	if(!$username && !$login){
+		header('Location:index.php');
+	}
+	if(isset($username)){
+		echo "<div class='welcome'><span class='innertext'><a href='blog.php' class='mainlink'> < Back </a>Welcome ".$username." (<a href=logout.php>Logout</a>)</span></div>";
+	}
+	?>
+	<div id='login'>
 	<form id='createblogform' action='create.php' method='post' accept-charset='UTF-8'>
+		<h2><span class="signin"></span>Create Blog</h2>
 		<fieldset >
-		<legend>Create Blog</legend>
-		<input type='hidden' name='user_id' id='userid' value="<?php echo($_SESSION['user_id']); ?>"/>
-		<label for='username' >Blog Name*:</label>
-		<input type='text' name='blogname' id='blogname'  maxlength="50" /> 
-		<input type='submit' name='create' value='Create' />
+		<p><input type='hidden' name='user_id' id='userid' value="<?php echo($_SESSION['user_id']); ?>"/></p>
+		<p><label for='username' >Blog Name*:</label></p>
+		<p><input type='text' name='blogname' id='blogname'  maxlength="50" /> </p>
+		<p><input type='submit' name='create' value='Create' /></p>
 		</fieldset>
 	</form>	
+	</div>
 </body>
 </html>

@@ -19,7 +19,12 @@ setUserSession($username);
 if(!$username && !$login){
 	header('Location:index.php');
 }else{
-	echo("<div class='welcome'><span class='innertext'>Welcome ".$username." <a href=logout.php> Logout </a></span>");
+	echo("<div class='welcome'>");
+	if(isset($_GET['blog']) && $_GET['blog'] != ""){
+		echo("<span class='innertext'><a href='blog.php' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span>");
+	}else{
+		echo("<span class='innertext'>Welcome ".$username." <a href=logout.php> Logout </a></span>");
+	}
 	if(!isset($_GET['blog']) || $_GET['blog'] == ""){
 		if(limitBlogs($_SESSION['user_id']) == ""){
 			echo("<span class='innertext'><a  href='create.php' class='createblog'> Create a Blog </a></span>");
@@ -42,9 +47,9 @@ if(!$username && !$login){
 			if($num_rows > 0){
 				while($blogarray = mysql_fetch_array($results)){
 					echo("<div class='blogentry'>");
-					echo("Title: <a href='blog.php?blog=".$blogarray['slug']."'>".$blogarray['slug']."</a>");
-					echo("<div class='author'> Author: ".getBlogAuthor($blogarray['blogID'])."</div>");
-					echo("<div class='author'> Posts: ".getBlogPosts($blogarray['blogID'])."</div>");
+					echo("Blog: <a href='blog.php?blog=".$blogarray['slug']."'>".$blogarray['slug']."</a>");
+					echo("<div class='author'> Author: ".getBlogAuthor($blogarray['blogID'])."<br />");
+					echo("Posts: ".getBlogPosts($blogarray['blogID'])."</div>");
 					echo("</div>");
 				}
 			}else{
@@ -52,7 +57,6 @@ if(!$username && !$login){
 			}
 		}
 	}else{
-		echo("<a href='blog.php' class='mainlink'> < Back </a>");
 		$slug = $_GET['blog'];
 		$getblog = "SELECT * FROM blogs WHERE slug = '{$slug}'";
 		$results = mysql_query($getblog);
@@ -77,30 +81,38 @@ if(!$username && !$login){
 							$auth = mysql_query("SELECT username FROM users WHERE userID = '{$id}'");
 							$author = mysql_fetch_array($auth);
 							echo('<div class="infopost">');
-								echo('<div class="author">'.$author['username'].'</div>');
-								echo('<div class="title">'.$data['title'].'</div>');
-								echo('<div class="date">'.$data['date'].'</div>');
-								echo('<div class="message">'.$data['message'].'</div>');
+								echo('<div class="details">');
+									echo('<div class="title">Title: '.$data['title'].'</div>');
+									echo('<div class="author">by '.$author['username'].',<span class="date"> posted on: '.$data['date'].'</span></div>');
+									echo('<hr>');
+									echo('<div class="message">'.$data['message'].'</div>');
+								echo('</div>');
 								echo("<div class='createcomment'><a href='comment.php?postid=".$data['postID']."&user_id=".$_SESSION['user_id']."&blog=".$slug."'>Write a Comment</a></div>");
-								echo('<div class="comments">');
-									$comments = getComments($data['postID']);
-									while($comm = mysql_fetch_array($comments)){
-										echo('<div class="comment">');
-											echo('<div class="commentMessage">'.$comm['message'].'</div>');
-											echo('<div class="commentAuthor">'.getCommentAuthor($comm['commentID']).'</div>');
-											echo('<div class="commentDate">'.$comm['date'].'</div>');
-										echo('</div>');
+									if(verifyPostPerms($slug) == 'ok' || isSuperadmin($_SESSION['user_id'])){
+										echo("<div class='deletePost'><a href='#' onclick=\"confirmation(".$data['postID'].",'".$slug."');\">Delete Post</a></div>");
 									}
-								echo('</div');
+									echo('<div class="comments">');
+										$comments = getComments($data['postID']);
+										while($comm = mysql_fetch_array($comments)){
+											echo('<div class="comment">');
+												echo('<div class="commentMessage">'.$comm['message'].'</div>');
+												echo('<div class="commentAuthor">by '.getCommentAuthor($comm['commentID']).',');
+												echo('<span class="commentDate">posted on:'.$comm['date'].'</span></div>');
+											echo('</div>');
+											if(verifyPostPerms($slug) == 'ok' || isSuperadmin($_SESSION['user_id']) || getCommentAuthor($comm['commentID']) == $username){
+												echo("<div class='deletePost'><a href='#' onclick=\"confirmationComm(".$comm['commentID'].",'".$slug."');\">Delete Comment</a></div>");
+											}
+										}
+									echo('</div>');
 							echo('</div>');
-						}
-						echo('</div>');
-						if(verifyPostPerms($slug) == 'ok'){
+							}
+						if(verifyPostPerms($slug) == 'ok' || isSuperadmin($_SESSION['user_id'])){
 							echo("<div class='createpost'><a href='post.php?bid=".$bid."&bname=".$bname."'>Post to Blog</a></div>");
 						}
+					echo('</div>');
 					}else{
 						echo('<div class="noposts">No Posts</div>');
-						if(verifyPostPerms($slug) == 'ok'){
+						if(verifyPostPerms($slug) == 'ok'|| isSuperadmin($_SESSION['user_id'])){
 							echo("<div class='createpost'><a href='post.php?bid=".$bid."&bname=".$bname."'>Post to Blog</a></div>");
 						}
 					}
@@ -117,5 +129,24 @@ if(!$username && !$login){
 }
 ?>
 <div id="footer"><span class="cpr">Copyrighted Forever</span></div>
+<script>
+function confirmation(id,slug) {
+	var answer = confirm("Delete Record?")
+	if (!answer){
+		window.location.reload;
+	}else{
+        window.location = "deletePost.php?postid="+id+"&blog="+slug;
+	}
+}
+
+function confirmationComm(id,slug) {
+	var answer = confirm("Delete Record?")
+	if (!answer){
+		window.location.reload;
+	}else{
+        window.location = "deleteComment.php?comment_id="+id+"&blog="+slug;
+	}
+}
+</script>
 </body>
 </html>

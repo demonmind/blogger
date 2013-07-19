@@ -87,8 +87,7 @@ if(isset($_POST['submit'])){
 		}else{
 			pwd.style.background = "#eee";
 		}
-		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-		if(ema.value.length <= 0 || !em.value.match(mailformat)){
+		if(ema.value.length <= 0 ){
 			alert("Please enter valid email");
 			ema.style.background = "#F5C9C9";
 			return false;
@@ -97,6 +96,5 @@ if(isset($_POST['submit'])){
 		}
 	}
 	</script>
-	<div id="footer"><span class="cpr">Copyrighted Forever</span></div>
 </body>
 </html>
