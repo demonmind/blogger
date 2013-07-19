@@ -190,4 +190,82 @@ input {
 #maincontainer{
 	position:relative;
 	top:40px;
+	width: 90%;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+
+.blogentry{
+	width: 100%;
+	border: 2px;
+	border-radius: 5px;
+	height: 80px;
+	background-color: lightgrey;
+	margin:16px;
+	padding-left: 13px;
+	font-family: "Varela Round", Arial, Helvetica, sans-serif;
+	color: rgb(255, 112, 0);
+}
+
+.blogentry a{
+	color: rgb(255, 112, 0);
+	text-decoration: none;
+}
+
+.infopost{
+	background-color: white;
+	border-radius: 10px;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	margin-top: 15px;
+}
+
+.comment{
+	background-color: #FCF9BD;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 9px;
+	font-style: italic;
+}
+
+.mainlink{
+	font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+.createcomment a{
+	font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+.createpost a{font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+.noposts{
+	margin: 30px;
+	background-color: whitesmoke;
+	border-radius: 5px;
+	padding: 11px;
 }

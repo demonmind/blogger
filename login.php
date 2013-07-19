@@ -20,7 +20,7 @@ if(isset($_POST['login'])){
 		$_SESSION['login'] = true;
 		header('Location:blog.php');
 	}else{
-		echo("Login details wrong");
+		echo("Login details wrong. Go back and retry.");
 	}
 	mysql_close($conn);
 }

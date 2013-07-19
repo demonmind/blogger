@@ -116,4 +116,33 @@ function limitBlogs($user_id){
 	return $slug;
 	mysql_close($conn);
 }
+
+function getBlogAuthor($blog_id){
+	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
+	$db = mysql_select_db(DB_NAME);
+	$sql = "SELECT username FROM users where userID = (SELECT user_id FROM blogs WHERE blogID = '{$blog_id}')";
+	$result = mysql_query($sql);
+	if(!$result){
+		die("Invalid query ".mysql_error());
+	}else{
+		while($row = mysql_fetch_array($result)){
+			return $row['username'];
+		}
+	}
+	mysql_close($conn);
+}
+
+function getBlogPosts($blog_id){
+	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
+	$db = mysql_select_db(DB_NAME);
+	$sql = "SELECT * FROM posts where blog_id = '{$blog_id}'";
+	$result = mysql_query($sql);
+	if(!$result){
+		die("Invalid query ".mysql_error());
+	}else{
+		$numrows = mysql_num_rows($result);
+		return $numrows;
+	}
+	mysql_close($conn);
+}
 ?>

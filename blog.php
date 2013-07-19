@@ -41,13 +41,18 @@ if(!$username && !$login){
 			$num_rows = mysql_num_rows($results);
 			if($num_rows > 0){
 				while($blogarray = mysql_fetch_array($results)){
-					echo("<div class='blogentry'>");echo("<a href='blog.php?blog=".$blogarray['slug']."'>".$blogarray['slug']."</a>");echo("</div>");
+					echo("<div class='blogentry'>");
+					echo("Title: <a href='blog.php?blog=".$blogarray['slug']."'>".$blogarray['slug']."</a>");
+					echo("<div class='author'> Author: ".getBlogAuthor($blogarray['blogID'])."</div>");
+					echo("<div class='author'> Posts: ".getBlogPosts($blogarray['blogID'])."</div>");
+					echo("</div>");
 				}
 			}else{
 				echo('<div class="noblogs">No Blogs Yet</div>');
 			}
 		}
 	}else{
+		echo("<a href='blog.php' class='mainlink'> < Back </a>");
 		$slug = $_GET['blog'];
 		$getblog = "SELECT * FROM blogs WHERE slug = '{$slug}'";
 		$results = mysql_query($getblog);
@@ -106,8 +111,11 @@ if(!$username && !$login){
 		}
 	}
 	echo("</div>");
+	echo("</div>");
+	echo("</div>");
 	mysql_close($conn);
 }
 ?>
+<div id="footer"><span class="cpr">Copyrighted Forever</span></div>
 </body>
 </html>
