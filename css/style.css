@@ -8,6 +8,13 @@ body {
 	margin:0;
 }
 
+.noblogs{
+	color: white;
+	text-align: center;
+	margin-top: 150px;
+	font-size: 28px;
+}
+
 .info{
 	color: white;
 	width: 100%;

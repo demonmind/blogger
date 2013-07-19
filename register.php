@@ -1,15 +1,18 @@
 <?php 
 session_start(); 
 require('config/database.php');
-echo($host);
-$username = $_POST["username"];
-$password = $_POST["password"];
-$email = $_POST["email"];
+if(isset($_POST["username"]) || isset($_POST["password"]) || isset($_POST["email"])){
+	$username = $_POST["username"];
+	$password = $_POST["password"];
+	$email = $_POST["email"];
+	// Check if user inputed special char for dangerous behavior.
+	
+	$username = htmlspecialchars($username);
+	$password = md5(htmlspecialchars($password));
+	$email = htmlspecialchars($email);
+}
 
-// Check if user inputed special char for dangerous behavior.
-$username = htmlspecialchars($username);
-$password = md5(htmlspecialchars($password));
-$email = htmlspecialchars($email);
+
 
 //Check do we have username and password
 if(isset($_POST['submit'])){

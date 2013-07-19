@@ -12,10 +12,11 @@ require('config/functions.php');
 </head>
 <body>
 	<?php
-	$username = $_SESSION['username'];
-	$login = $_SESSION['login'];
-	setUserSession($username);
-	if(!$username && !$login){
+	if(isset($_SESSION['username']) || isset($_SESSION['login'])){
+		$username = $_SESSION['username'];
+		$login = $_SESSION['login'];
+		setUserSession($username);
+	}else{
 		echo "<div class='welcome'><span class='innertext'>Welcome Guest! Login below or <a href=register.php>Register</a></span></div>";
 	}
 	if(isset($username)){
