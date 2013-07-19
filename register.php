@@ -51,7 +51,7 @@ if(isset($_POST['submit'])){
 </head>
 <body>
 	<?php
-		echo "<div class='welcome'><span class='innertext'>Welcome Guest! Register below.</span></div>";
+		echo "<div class='welcome'><span class='innertext'><a href='index.php' class='mainlink'> < Back </a> Welcome Guest! Register below.</span></div>";
 	?>
 	<div id='register'>
 		<form id='registerform' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8' onsubmit="return valData()">
