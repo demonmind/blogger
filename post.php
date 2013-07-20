@@ -6,16 +6,6 @@ require 'config/functions.php';
 if(!isset($_SESSION['login'])){
 	header('Location:index.php');
 }
-if(isset($_POST['post'])){
-	if($_POST['title'] == "" || $_POST['message'] == ""){
-		echo("Please go back and fill in all the required fields");
-	}else{
-		$name = $_POST['blog_name'];
-		$postname = createPost($_POST['user_id'],$_POST['blog_id'],$_POST['title'],$_POST['message']);		
-		echo('<div class="cSuccess">Post Created:'.$postname.'.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
-		die();
-	}
-}
 ?>
 <!DOCTYPE XHTML 1.1 PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,9 +16,26 @@ if(isset($_POST['post'])){
 </head>
 <body>
 	<?php
-		$blog = $_GET['bname'];
-		$username = $_SESSION['username'];
-		echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$blog."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+		if(isset($_POST['post'])){
+			if($_POST['title'] == "" || $_POST['message'] == ""){
+				echo("Please go back and fill in all the required fields");
+			}else{
+				$name = $_POST['blog_name'];
+				$postname = createPost($_POST['user_id'],$_POST['blog_id'],$_POST['title'],$_POST['message']);		
+				echo('<div class="cSuccess">Post Created: '.$postname.'.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
+			}
+		}
+		if(!isset($_GET['bname'])){
+			$blog = $_POST['blog_name'];
+			$username = $_SESSION['username'];
+			echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$blog."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+		}else{
+			$blog = $_GET['bname'];
+			$username = $_SESSION['username'];
+			echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$blog."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+		}
+		if(isset($_POST['post'])){
+		}else{
 	?>
 	<div id='login'>
 		<form id='login' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8'>
@@ -49,5 +56,8 @@ if(isset($_POST['post'])){
 			</fieldset>
 		</form>
 	</div>
+	<?php
+		}
+	?>
 </body>
 </html>

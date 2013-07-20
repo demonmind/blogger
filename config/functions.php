@@ -182,4 +182,15 @@ function deletecomment($comment_id){
 	}
 	mysql_close($conn);
 }
+
+function deleteblog($blog_id){
+	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
+	$db = mysql_select_db(DB_NAME);
+	$sql = "DELETE FROM blogs where blogID = '{$blog_id}'";
+	$result = mysql_query($sql);
+	if(!$result){
+		die("Invalid query ".mysql_error());
+	}
+	mysql_close($conn);
+}
 ?>

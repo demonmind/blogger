@@ -6,16 +6,6 @@ require 'config/functions.php';
 if(!isset($_SESSION['login'])){
 	header('Location:index.php');
 }
-if(isset($_POST['comment'])){
-	if($_POST['message'] == ""){
-		echo("Please go back and fill in all the required fields");
-	}else{
-		$name = $_POST['blogname'];
-		createComment($_POST['post_id'],$_POST['user_id'],$_POST['message']);		
-		echo('<div class="cSuccess">Comment Successfully Created.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
-		die();
-	}
-}
 ?>
 <!DOCTYPE XHTML 1.1 PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,8 +16,24 @@ if(isset($_POST['comment'])){
 </head>
 <body>
 	<?php
+		if(isset($_POST['comment'])){
+			if($_POST['message'] == ""){
+				echo("Please go back and fill in all the required fields");
+			}else{
+				$name = $_POST['blogname'];
+				createComment($_POST['post_id'],$_POST['user_id'],$_POST['message']);		
+				echo('<div class="cSuccess">Comment Successfully Created.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
+			}
+		}
 		$username = $_SESSION['username'];
-		echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$_GET['blog']."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+		if(!isset($_GET['blog'])){
+			echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$_POST['blogname']."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+		}else{
+			echo("<div class='welcome'><span class='innertext'><a href='blog.php?blog=".$_GET['blog']."' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span></div>");
+		}
+	?>
+	<?php
+		if(!isset($_POST['comment'])){
 	?>
 	<div id='login'>
 		<form id='login' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post' accept-charset='UTF-8'>
@@ -46,5 +52,9 @@ if(isset($_POST['comment'])){
  
 			</fieldset>
 		</form>
+	</div>
+	<?php
+	}
+	?>
 </body>
 </html>

@@ -6,15 +6,6 @@ require 'config/functions.php';
 if(!isset($_SESSION['login'])){
 	header('Location:index.php');
 }
-if(isset($_POST['create'])){
-	if($_POST['blogname'] == ""){
-		echo("Please go back and fill in all the required fields");
-	}else{
-		$name = createBlog($_POST['user_id'],$_POST['blogname']);		
-		echo('<div class="cSuccess">Blog Created.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
-		die();
-	}
-}
 ?>
 <!DOCTYPE XHTML 1.1 PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -33,6 +24,14 @@ if(isset($_POST['create'])){
 	if(isset($username)){
 		echo "<div class='welcome'><span class='innertext'><a href='blog.php' class='mainlink'> < Back </a>Welcome ".$username." (<a href=logout.php>Logout</a>)</span></div>";
 	}
+	if(isset($_POST['create'])){
+		if($_POST['blogname'] == ""){
+			echo("Please go back and fill in all the required fields");
+		}else{
+			$name = createBlog($_POST['user_id'],$_POST['blogname']);		
+			echo('<div class="cSuccess">Blog Created.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
+		}
+	}else{
 	?>
 	<div id='login'>
 	<form id='createblogform' action='create.php' method='post' accept-charset='UTF-8'>
@@ -45,5 +44,8 @@ if(isset($_POST['create'])){
 		</fieldset>
 	</form>	
 	</div>
+	<?php
+	}
+	?>
 </body>
 </html>

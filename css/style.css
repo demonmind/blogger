@@ -298,7 +298,7 @@ input {
 }
 
 .deletePost{
-	margin: 10px 0;
+	margin: 10px 10px;
 }
 
 .createpost{
@@ -355,4 +355,34 @@ input {
 	font-size: 12px;
 	font-style: italic;
 	padding-left: 10px;
+}
+
+.deleteBlog{
+	float:right;
+	margin: 6px 20px;
+}
+
+.deleteBlog a{
+	font: bold 11px Arial;
+	text-decoration: none;
+	background-color: #EEEEEE;
+	color: #333333;
+	padding: 2px 6px 2px 6px;
+	border-top: 1px solid #CCCCCC;
+	border-right: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+	border-left: 1px solid #CCCCCC;
+}
+
+.cSuccess{
+	font-size: 28px;
+	position: relative;
+	text-align: center;
+	top: 150px;
+	color: white;
+}
+
+.cSuccess a{
+	color: red;
+	text-decoration: none;
 }

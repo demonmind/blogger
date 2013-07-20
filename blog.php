@@ -48,6 +48,9 @@ if(!$username && !$login){
 				while($blogarray = mysql_fetch_array($results)){
 					echo("<div class='blogentry'>");
 					echo("Blog: <a href='blog.php?blog=".$blogarray['slug']."'>".$blogarray['slug']."</a>");
+					if($_SESSION['user_id'] == $blogarray['user_id'] || isSuperadmin($_SESSION['user_id'])){
+						echo("<span class='deleteBlog'><a href='#' onclick=\"confirmationBlog(".$blogarray['blogID'].");\">Delete Blog</a></span>");
+					}
 					echo("<div class='author'> Author: ".getBlogAuthor($blogarray['blogID'])."<br />");
 					echo("Posts: ".getBlogPosts($blogarray['blogID'])."</div>");
 					echo("</div>");
@@ -76,6 +79,9 @@ if(!$username && !$login){
 				}else{
 					$num_rows = mysql_num_rows($getposts);
 					if($num_rows > 0){
+						if(verifyPostPerms($slug) == 'ok' || isSuperadmin($_SESSION['user_id'])){
+							echo("<div class='createpost'><a href='post.php?bid=".$bid."&bname=".$bname."'>Post to Blog</a></div>");
+						}
 						echo("<div class='container'>");
 						while($data = mysql_fetch_array($getposts)){
 							$auth = mysql_query("SELECT username FROM users WHERE userID = '{$id}'");
@@ -87,10 +93,11 @@ if(!$username && !$login){
 									echo('<hr>');
 									echo('<div class="message">'.$data['message'].'</div>');
 								echo('</div>');
-								echo("<div class='createcomment'><a href='comment.php?postid=".$data['postID']."&user_id=".$_SESSION['user_id']."&blog=".$slug."'>Write a Comment</a></div>");
+								echo("<div class='createcomment'><a href='comment.php?postid=".$data['postID']."&user_id=".$_SESSION['user_id']."&blog=".$slug."'>Write a Comment</a>");
 									if(verifyPostPerms($slug) == 'ok' || isSuperadmin($_SESSION['user_id'])){
-										echo("<div class='deletePost'><a href='#' onclick=\"confirmation(".$data['postID'].",'".$slug."');\">Delete Post</a></div>");
+										echo("<span class='deletePost'><a href='#' onclick=\"confirmation(".$data['postID'].",'".$slug."');\">Delete Post</a></span>");
 									}
+									echo('</div>');
 									echo('<div class="comments">');
 										$comments = getComments($data['postID']);
 										while($comm = mysql_fetch_array($comments)){
@@ -125,10 +132,8 @@ if(!$username && !$login){
 	echo("</div>");
 	echo("</div>");
 	echo("</div>");
-	mysql_close($conn);
 }
 ?>
-<div id="footer"><span class="cpr">Copyrighted Forever</span></div>
 <script>
 function confirmation(id,slug) {
 	var answer = confirm("Delete Record?")
@@ -140,11 +145,19 @@ function confirmation(id,slug) {
 }
 
 function confirmationComm(id,slug) {
-	var answer = confirm("Delete Record?")
+	var answer = confirm("Delete Comment?")
 	if (!answer){
 		window.location.reload;
 	}else{
         window.location = "deleteComment.php?comment_id="+id+"&blog="+slug;
+	}
+}
+function confirmationBlog(id) {
+	var answer = confirm("Delete Blog?")
+	if (!answer){
+		window.location.reload;
+	}else{
+        window.location = "deleteBlog.php?blog_id="+id;
 	}
 }
 </script>
