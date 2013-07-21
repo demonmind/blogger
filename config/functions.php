@@ -2,6 +2,7 @@
 function createBlog($owner_id, $slug){
 	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
 	$db = mysql_select_db(DB_NAME);
+	$slug = mysql_real_escape_string($slug);
 	$create = "INSERT INTO blogs(blogID, user_id, slug) VALUES(DEFAULT, '{$owner_id}', '{$slug}')";
 	$result = mysql_query($create);
 	if(!$result){
@@ -14,6 +15,8 @@ function createBlog($owner_id, $slug){
 function createPost($owner_id, $blog_id, $title, $message){
 	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
 	$db = mysql_select_db(DB_NAME);
+	$title = mysql_real_escape_string($title);
+	$message = mysql_real_escape_string($message);
 	$create = "INSERT INTO posts(postID, blog_id, user_id, title, message, date ) VALUES(DEFAULT, '{$blog_id}', '{$owner_id}', '{$title}', '{$message}', CURRENT_TIMESTAMP)";
 	$result = mysql_query($create);
 	if(!$result){
@@ -39,6 +42,7 @@ function getComments($post_id){
 function createComment($post_id, $owner_id, $message){
 	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
 	$db = mysql_select_db(DB_NAME);
+	$message = mysql_real_escape_string($message);
 	$create = "INSERT INTO comments(commentID, post_id, user_id, title, message, date ) VALUES(DEFAULT, '{$post_id}', '{$owner_id}', NULL, '{$message}', CURRENT_TIMESTAMP)";
 	$result = mysql_query($create);
 	if(!$result){
