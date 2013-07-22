@@ -31,6 +31,7 @@ if(isset($_POST['submit'])){
 			  echo("Username Already Taken");
 			  die();
 			}else{
+			  $username = ltrim($username);
 			  $sqlquery = "INSERT INTO users(userID, username, password, email) VALUES(DEFAULT, '{$username}', '{$password}', '{$email}')";
 			  $result = mysql_query($sqlquery);
 			  if(!$result){

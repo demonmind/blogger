@@ -386,3 +386,10 @@ input {
 	color: red;
 	text-decoration: none;
 }
+
+#error{
+	color: white;
+	font-size: 18px;
+	margin: 100px auto;
+	width: 400px;
+}

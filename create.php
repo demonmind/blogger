@@ -26,9 +26,9 @@ if(!isset($_SESSION['login'])){
 	}
 	if(isset($_POST['create'])){
 		if($_POST['blogname'] == ""){
-			echo("Please go back and fill in all the required fields");
+			echo("<div id='error'>Please go back and fill in all the required fields</div>");
 		}else{
-			$name = createBlog($_POST['user_id'],$_POST['blogname']);		
+			$name = createBlog($_POST['user_id'],ltrim($_POST['blogname']));		
 			echo('<div class="cSuccess">Blog Created.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
 		}
 	}else{

@@ -18,10 +18,10 @@ if(!isset($_SESSION['login'])){
 	<?php
 		if(isset($_POST['comment'])){
 			if($_POST['message'] == ""){
-				echo("Please go back and fill in all the required fields");
+				echo("<div id='error'>Please go back and fill in all the required fields</div>");
 			}else{
 				$name = $_POST['blogname'];
-				createComment($_POST['post_id'],$_POST['user_id'],$_POST['message']);		
+				createComment($_POST['post_id'],$_POST['user_id'],ltrim($_POST['message']));		
 				echo('<div class="cSuccess">Comment Successfully Created.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
 			}
 		}

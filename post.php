@@ -18,10 +18,10 @@ if(!isset($_SESSION['login'])){
 	<?php
 		if(isset($_POST['post'])){
 			if($_POST['title'] == "" || $_POST['message'] == ""){
-				echo("Please go back and fill in all the required fields");
+				echo("<div id='error'>Please go back and fill in all the required fields.</div>");
 			}else{
 				$name = $_POST['blog_name'];
-				$postname = createPost($_POST['user_id'],$_POST['blog_id'],$_POST['title'],$_POST['message']);		
+				$postname = createPost($_POST['user_id'],$_POST['blog_id'],ltrim($_POST['title']),ltrim($_POST['message']));		
 				echo('<div class="cSuccess">Post Created: '.$postname.'.<a href="blog.php?blog='.$name.'">View</a> your blog</div>');
 			}
 		}
