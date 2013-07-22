@@ -393,3 +393,9 @@ input {
 	margin: 100px auto;
 	width: 400px;
 }
+
+.search{
+	position: absolute;
+	top: 0;
+	left: 0;
+}

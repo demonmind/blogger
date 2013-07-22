@@ -23,7 +23,7 @@ if(!$username && !$login){
 	if(isset($_GET['blog']) && $_GET['blog'] != ""){
 		echo("<span class='innertext'><a href='blog.php' class='mainlink'> < Back </a>Welcome ".$username." <a href=logout.php> Logout </a></span>");
 	}else{
-		echo("<span class='innertext'>Welcome ".$username." <a href=logout.php> Logout </a></span>");
+		echo("<span class='innertext'>Welcome ".$username." <a href=logout.php> Logout </a></span><span class='search'><form action='blog.php' method='post'><input type='text' name='search' placeholder='Search'/><input type='submit' name='submit' value='Submit' /></form></span>");
 	}
 	if(!isset($_GET['blog']) || $_GET['blog'] == ""){
 		if(limitBlogs($_SESSION['user_id']) == ""){
@@ -38,7 +38,13 @@ if(!$username && !$login){
 	$conn = mysql_connect(HOST, USER, PASS)or die("Mysql connection error:". mysql_error());
 	$db = mysql_select_db(DB_NAME);
 	if(!isset($_GET['blog']) || $_GET['blog'] == ""){
-		$getblogs = "SELECT * FROM blogs";
+		if(isset($_POST['search'])){
+			$val = mysql_real_escape_string($_POST['search']);
+			$val = htmlentities($val);
+			$getblogs = "SELECT * FROM blogs WHERE slug LIKE '%".$val."%'";
+		}else{
+			$getblogs = "SELECT * FROM blogs";
+		}
 		$results = mysql_query($getblogs);
 		if(!$results){
 			die("Invalid query ".mysql_error());
